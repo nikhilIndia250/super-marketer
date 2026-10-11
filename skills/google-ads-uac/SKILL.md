@@ -1409,18 +1409,66 @@ every one, not just whichever happens to explain what you've already
 seen:
 
 - [ ] **Ad Strength** per enabled ad, benchmarked against "Good or
-  better" (`ad_group_ad.ad_strength`) — see "Ad Strength" above
+  better" (`ad_group_ad.ad_strength`) — see "Ad Strength" above. **A
+  Poor/weak finding is not done until it shows up as an action-plan
+  line** (fix the creative, or pause it) — reporting "15/34 Good or
+  better" as a standalone statistic, with nothing in the plan responding
+  to it, is the same incompleteness this checklist exists to catch, just
+  one level further downstream. Checking something and acting on nothing
+  it found is not meaningfully different from not checking it.
 - [ ] **Network-level conversion volume** (not just CTR/CPC) for every
   campaign in scope — see "CTR/CPC diagnose a network problem;
-  conversion volume is what sizes the fix" above
+  conversion volume is what sizes the fix" above. **Postclick data in
+  this codebase will never have network-level breakdown** — the
+  attribution-collision fix (`docs/DECISIONS.md`, 2026-10-03/05)
+  structurally collapses postclick network rows to one, permanently, not
+  as a per-run surprise to rediscover. That is not a reason to mark this
+  BLOCKED — it's the reason the fallback exists: Google's own
+  category-filtered conversions, segmented by network
+  (`segments.ad_network_type`), already confirmed composable with the
+  in-app-actions query above. Use it by default. Mark this BLOCKED only
+  if live Google access itself is unreachable — never because postclick
+  alone doesn't have it.
 - [ ] **The in-app-actions-vs-postclick gap**, at the overall campaign
-  level, against the 25% threshold — see "Standing check" above
+  level, against the 25% threshold — see "Standing check" above. **The
+  default formula is `conversions − installs`** (category-filtered,
+  excluding `DOWNLOAD`) — not narrowed to one specific "canonical
+  purchase action" unless you've actually found a duplicate-tracker
+  problem that requires it (see "Getting from 42,619 to the correct
+  3,295" above for when that narrowing is genuinely necessary). Don't
+  reach for the narrower version by default; it's the exception, not the
+  starting point. This check needs the same live Google access as the
+  network-volume item above — if that one is BLOCKED for live-access
+  reasons, say the same thing here, plainly, rather than a vaguer
+  restatement that reads like a second, different problem.
 - [ ] **The actual bidding goal**, via
   `campaign.selective_optimization.conversion_actions` directly — never
   inferred from the campaign name or account-level goals — see "A
-  second, independent finding" above
+  second, independent finding" above. **This rarely changes once set**,
+  so it doesn't need a fresh live pull on every single analysis — if
+  this skill (or recent project context) already has a confirmed finding
+  for the campaign in question, that satisfies this item; only do a live
+  check the first time for a given campaign, or if something in the data
+  actually suggests the goal may have changed. Separately: the campaign's
+  **budget, target CPA/ROAS, and bidding-strategy type are already
+  stored in Supabase** without needing live access at all
+  (`connector_raw_data`, `data_type='budget_bid'`, via
+  `services/connectors/budgetBidHistory.js` — periodic full-state
+  snapshots, not just change events) — check there before marking
+  *those* specific values BLOCKED. Only the specific conversion-action
+  selection itself is outside that stored vocabulary and may still need
+  a live check (subject to the rarely-changes exception above).
 - [ ] **`change_event`**, for any campaign whose numbers moved — see
-  failure pattern #1 below
+  failure pattern #1 below. This is *meant* to sync into the same
+  `budget_bid` storage as the snapshots above, via
+  `services/changeHistoryService.js` — but that service has a confirmed,
+  unresolved bug: it reads credentials through the legacy
+  `getValidGoogleToken`/`connector_credentials` path, which is empty for
+  every client (the live path is `connector_connections`, via
+  `connectorsService.getConnectionIdsForPlatform`). Until that's fixed
+  (a `developer` task, not something to patch around mid-analysis),
+  treat `change_event` as genuinely requiring live access — don't assume
+  it's sitting in Supabase just because the storage mechanism exists.
 
 If a real time/scope constraint means one of these genuinely can't be
 done, say so explicitly in the output ("Ad Strength not checked because
