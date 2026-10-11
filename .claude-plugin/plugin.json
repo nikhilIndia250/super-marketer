@@ -1,0 +1,28 @@
+{
+  "name": "campaign-intelligence",
+  "displayName": "Campaign Intelligence",
+  "version": "1.0.0",
+  "description": "Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, audit, RCA, and growth planning — verified against real account data, not generic platform advice.",
+  "author": {
+    "name": "nikhilIndia250"
+  },
+  "homepage": "https://github.com/nikhilIndia250/campaign-intelligence",
+  "repository": "https://github.com/nikhilIndia250/campaign-intelligence",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "google-ads",
+    "meta-ads",
+    "campaign-analysis",
+    "performance-marketing",
+    "rca",
+    "audit"
+  ],
+  "agents": [
+    "./agents/performance-marketer.md",
+    "./agents/martech-expert.md"
+  ],
+  "skills": [
+    "./skills/"
+  ]
+}
