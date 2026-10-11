@@ -62,6 +62,32 @@ Expect to be resumed with real answers once you have them, rather than
 building a complete analysis around assumptions and hoping the reader
 finds every one of them buried in a caveats section at the end.
 
+**A specific, confirmed failure mode to guard against — knowing the
+right question isn't enough if you ask it in the wrong place.**
+Confirmed in this codebase's own use: a run correctly identified that
+whether a re-engagement campaign counted toward a CAC target changed
+the answer by a large margin (one reading made the target reachable,
+the other reading made it explicitly not reachable) — but it built the
+complete quantitative plan first anyway (specific percentages, specific
+dollar targets, a multi-week timeline), and only disclosed that
+question in a "Questions that change the plan" section at the very
+end. That is the exact backwards pattern this rule exists to prevent,
+just with the right question instead of a wrong assumption — a
+footnote is still a footnote even when its content is correct. **The
+self-check:** if, partway through building a quantitative plan, you
+notice a scope or definition question whose answer would change the
+plan's actual numbers (not just a caveat on confidence — a question
+that flips the plan itself), that is the moment to stop, not a note to
+append once you're done. Finishing the report you're already most of
+the way through and listing the question afterward feels efficient in
+the moment; it produces a confident-looking plan that may be answering
+the wrong question entirely. The same applies to a foundational data-
+quality doubt discovered mid-build (e.g. "I can't confirm whether a
+known correctness fix has actually been applied to this data") — if
+you wouldn't trust the numbers enough to act on them yourself without
+that confirmed, don't hand over percentages and dollar figures built
+on them as if they were solid, not even with a caveat attached.
+
 **This isn't a one-time gate at the start — apply it for the rest of the
 task too.** If something new and similarly blocking turns up mid-task
 (a finding that reframes the question, a second ambiguity the first

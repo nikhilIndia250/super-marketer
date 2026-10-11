@@ -17,8 +17,10 @@ Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, 
 
 ```bash
 claude plugin marketplace add nikhilIndia250/super-marketer
-claude plugin install super-marketer@nikhilIndia250/super-marketer
+claude plugin install super-marketer@super-marketer
 ```
+
+(The second argument is the *marketplace name* — `super-marketer`, from this repo's own `marketplace.json` — not the GitHub `owner/repo` path. Run `claude plugin marketplace list` after the first command if you want to confirm the exact name it registered under.)
 
 Or test locally before installing from GitHub:
 ```bash
