@@ -8,7 +8,8 @@ Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, 
 - `performance-marketer` — interprets real campaign performance data (spend, CPI, CAC, CTR, ROAS, ad-set/ad-level breakdowns) and turns it into a concrete diagnosis and action plan. Read-only; never mutates data.
 - `martech-expert` — diagnoses tracking/API/attribution plumbing (pixel/SDK setup, conversion event configuration, join-key mismatches, API integration issues). Also read-only.
 
-**10 skills:**
+**11 skills:**
+- 1 orchestration-behavior skill, load-bearing for everything else here: **`marketer-interview`** — governs how *you*, the orchestrator, should handle a blocking-questions response from either agent (ask one at a time via `AskUserQuestion`, resume the same subagent with the answer, repeat as needed). See "The question-asking pattern" below — this skill is the actual fix for a real, confirmed failure mode, not optional reading.
 - 3 task-orchestration skills that route to the agents above: `campaign-analysis` (routine review), `campaign-audit` (full health check, scorecard output), `campaign-rca` (single-symptom root cause, multi-hypothesis)
 - 1 deeply-verified campaign-type playbook: `google-ads-uac` (Google App Campaigns — ACI/ACE), covering attribution caveats, confirmed failure patterns, bidding-goal verification procedures, and a standing in-app-actions-vs-postclick gap check
 - 6 platform/API reference skills: `google-ads`, `google-ads-api`, `meta-ads`, `meta-ads-api`, `mobile-marketing-platforms`, `web-analytics`
@@ -59,6 +60,8 @@ This was deliberately chosen over giving the agents direct `AskUserQuestion` acc
 ### What this means practically, if you're the one orchestrating
 
 When one of these agents hands back a report containing questions (it'll usually be obvious — explicit "before I build this, I need to know..." framing), don't just relay the text. Pull the questions out, ask them one at a time (via `AskUserQuestion` if you have it, or plain dialogue otherwise), and once answered, resume that same agent with the answers rather than starting a fresh one or trying to extrapolate the answer yourself. The agent is designed around getting resumed with real answers, not around you guessing on its behalf.
+
+**This paragraph is not enough on its own — confirmed by a real failure.** An earlier version of this plugin shipped with only this README describing the pattern, no skill enforcing it. In testing, the agent correctly identified and returned genuinely blocking questions (including one where the two possible answers implied *opposite* actions) — and the orchestrator just printed them as plain text, exactly like any other report, with no dialogue box and no actual interaction. Explaining a pattern in prose doesn't make an unrelated orchestrating session follow it; nothing was forcing that behavior to happen. **The `marketer-interview` skill (see above) is the actual fix** — it's content that gets loaded and followed, not just read. If you're building on this plugin, don't rely on a README to change orchestrator behavior; put it in a skill.
 
 ## What these agents will never do
 
