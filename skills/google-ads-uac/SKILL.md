@@ -1428,6 +1428,41 @@ X") — the same discipline this skill already requires for "no playbook
 exists yet" — rather than a plan that silently never mentions it was
 skipped.
 
+**Escalation — the soft version of this rule was confirmed insufficient.**
+A second real run, with full live tool access the entire time (confirmed:
+it ran Bash/Node commands throughout), still shipped a complete action
+plan while listing 2 of these 5 items under "data pulls still needed" —
+correctly *identified* as necessary, explicitly deferred to later or to
+`martech-expert`, and the plan went out anyway. The third item (Ad
+Strength) wasn't even listed as deferred — just absent. Having the tools
+and the knowledge and still not running the check is a worse failure than
+not knowing to check at all, because nothing about the output looks
+incomplete — it reads as a thorough, honest plan with a footnote, which
+is exactly what makes it easy to ship by mistake.
+
+**So the rule is now structural, not advisory: the action plan section
+may not be written until every checklist item is actually done.** Not
+scheduled, not deferred to another agent, not listed as a future data
+pull — done, in this same investigation, using the live tool access you
+already have. If you notice you're about to write the action plan and a
+checklist item is still open, that is the exact mid-task-roadblock moment
+`performance-marketer.md`'s own ask-first discipline describes — stop and
+either (a) go run the check now, since you have the tools for it, or (b)
+if something genuinely prevents it (no live credential path reachable,
+an explicit scope exclusion), hand back and say so plainly instead of
+finishing the plan regardless.
+
+**Required output: a literal checklist-status block, before the action
+plan, every time.** Five lines, one per item, each ending in either
+"— done: `<the actual finding>`" or "— BLOCKED: `<the real reason>`".
+Never "— still needed" or "— for martech-expert" as a substitute for
+either state; those are the exact phrasings that let this slip through
+twice already, because they describe a plan to do the work rather than
+the work itself or a stated blocker. A block with any BLOCKED line in it
+is a visible, honest signal to the reader that the plan below is partial
+— which is the whole point: make incompleteness something you have to
+write down, not something that quietly happens.
+
 ## Common failure patterns, roughly in order of frequency
 
 1. **A human changed the budget or target CPA, and the "decline" is just
