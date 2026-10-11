@@ -1386,6 +1386,48 @@ keywords, no manual placement targeting. The levers that actually exist:
 - **Audience signals** — hints, not restrictions (same caveat as Pmax).
   Don't expect a targeting fix here to behave like an exclusion.
 
+## Mandatory minimum checklist — run every item, regardless of whether you already have enough findings
+
+**Confirmed failure mode, not a hypothetical:** a real run on firstclub-v2
+produced a complete, actionable CAC plan — tail-spend cuts, a reallocation
+pool, creative pausing — without ever checking Ad Strength or pulling
+real network-level conversion volume, even though both are documented
+checks in this skill and the account is a live App Campaign account.
+Nothing was *wrong* about the plan it built; it just stopped
+investigating once it had found enough to build something, rather than
+working through what this skill actually calls for. A plan that looks
+complete is not the same as a plan built on the full checklist — the
+tail-spend finding alone can't tell you whether the problem is creative
+(Ad Strength) or genuine audience/bid exhaustion (network volume), and
+without checking, you don't actually know which fix is correct, you've
+just picked the one that happened to surface first.
+
+**These are not optional, and "I already found something" is not a
+reason to skip the rest.** For any diagnosis, audit, or optimization
+task touching a live App Campaign account, run all of the following —
+every one, not just whichever happens to explain what you've already
+seen:
+
+- [ ] **Ad Strength** per enabled ad, benchmarked against "Good or
+  better" (`ad_group_ad.ad_strength`) — see "Ad Strength" above
+- [ ] **Network-level conversion volume** (not just CTR/CPC) for every
+  campaign in scope — see "CTR/CPC diagnose a network problem;
+  conversion volume is what sizes the fix" above
+- [ ] **The in-app-actions-vs-postclick gap**, at the overall campaign
+  level, against the 25% threshold — see "Standing check" above
+- [ ] **The actual bidding goal**, via
+  `campaign.selective_optimization.conversion_actions` directly — never
+  inferred from the campaign name or account-level goals — see "A
+  second, independent finding" above
+- [ ] **`change_event`**, for any campaign whose numbers moved — see
+  failure pattern #1 below
+
+If a real time/scope constraint means one of these genuinely can't be
+done, say so explicitly in the output ("Ad Strength not checked because
+X") — the same discipline this skill already requires for "no playbook
+exists yet" — rather than a plan that silently never mentions it was
+skipped.
+
 ## Common failure patterns, roughly in order of frequency
 
 1. **A human changed the budget or target CPA, and the "decline" is just
