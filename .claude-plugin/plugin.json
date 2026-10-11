@@ -1,13 +1,13 @@
 {
-  "name": "campaign-intelligence",
-  "displayName": "Campaign Intelligence",
+  "name": "super-marketer",
+  "displayName": "Super Marketer",
   "version": "1.0.0",
   "description": "Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, audit, RCA, and growth planning — verified against real account data, not generic platform advice.",
   "author": {
     "name": "nikhilIndia250"
   },
-  "homepage": "https://github.com/nikhilIndia250/campaign-intelligence",
-  "repository": "https://github.com/nikhilIndia250/campaign-intelligence",
+  "homepage": "https://github.com/nikhilIndia250/super-marketer",
+  "repository": "https://github.com/nikhilIndia250/super-marketer",
   "license": "MIT",
   "keywords": [
     "marketing",

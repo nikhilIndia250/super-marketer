@@ -1,4 +1,4 @@
-# Campaign Intelligence
+# Super Marketer
 
 Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, audit, root-cause analysis, and growth planning — built and verified against real account data across multiple live accounts, not generic platform advice.
 
@@ -16,13 +16,13 @@ Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, 
 ## Install
 
 ```bash
-claude plugin marketplace add nikhilIndia250/campaign-intelligence
-claude plugin install campaign-intelligence@nikhilIndia250/campaign-intelligence
+claude plugin marketplace add nikhilIndia250/super-marketer
+claude plugin install super-marketer@nikhilIndia250/super-marketer
 ```
 
 Or test locally before installing from GitHub:
 ```bash
-claude --plugin-dir ./campaign-intelligence
+claude --plugin-dir ./super-marketer
 ```
 
 ## A note on portability

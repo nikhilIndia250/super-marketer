@@ -1,13 +1,13 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "campaign-intelligence",
+  "name": "super-marketer",
   "description": "Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, audit, RCA, and growth planning",
   "owner": {
     "name": "nikhilIndia250"
   },
   "plugins": [
     {
-      "name": "campaign-intelligence",
+      "name": "super-marketer",
       "description": "Performance-marketing agents and skills for Google/Meta Ads campaign diagnosis, audit, RCA, and growth planning — verified against real account data, not generic platform advice.",
       "version": "1.0.0",
       "author": {
@@ -15,7 +15,7 @@
       },
       "source": "./",
       "category": "productivity",
-      "homepage": "https://github.com/nikhilIndia250/campaign-intelligence",
+      "homepage": "https://github.com/nikhilIndia250/super-marketer",
       "tags": [
         "marketing",
         "google-ads",
